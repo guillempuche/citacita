@@ -1,0 +1,14 @@
+# Lint rules https://dart.dev/tools/linter-rules
+include: package:lints/recommended.yaml
+
+analyzer:
+  errors:
+    missing_required_param: error
+    missing_return: error
+    sort_unnamed_constructors_first: ignore
+
+linter:
+  rules:
+    # Back to the 80s
+    # lines_longer_than_80_chars: true
+    # - directives_ordering
