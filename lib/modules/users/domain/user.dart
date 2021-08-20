@@ -1,11 +1,12 @@
+import 'package:citacita/modules/users/domain/user_email.dart';
+import 'package:citacita/modules/users/domain/user_id.dart';
+import 'package:citacita/modules/users/domain/user_meta.dart';
+import 'package:citacita/modules/users/domain/user_name.dart';
+import 'package:citacita/modules/users/domain/user_profile_name.dart';
+import 'package:citacita/modules/users/domain/events/user_created.dart';
+import 'package:citacita/modules/users/domain/events/user_deleted.dart';
 import 'package:citacita/shared/core/result.dart';
-import 'package:equatable/equatable.dart';
-
-import 'package:citacita/modules/users/domain/entities/user_email.dart';
-import 'package:citacita/modules/users/domain/entities/user_id.dart';
-import 'package:citacita/modules/users/domain/entities/user_meta.dart';
-import 'package:citacita/modules/users/domain/entities/user_name.dart';
-import 'package:citacita/modules/users/domain/entities/user_profile_name.dart';
+import 'package:citacita/shared/domain/aggregate_root.dart';
 import 'package:citacita/shared/domain/unique_entity_id.dart';
 
 class UserProps {
@@ -35,7 +36,7 @@ class User extends AggregateRoot<UserProps> {
         _profileName = profileName,
         _email = email,
         _meta = meta,
-        super();
+        super(UserProps props, id);
 
   static Result<User> create(
       {required username,
@@ -45,7 +46,8 @@ class User extends AggregateRoot<UserProps> {
       id}) {
     User user = User._(
         username: username, profileName: profileName, email: email, meta: meta);
-    if (!id) user.addDomainEvent();
+
+    if (!id) user.addDomainEvent(UserCreated(user));
 
     return Result.ok<User>(user);
   }
@@ -64,4 +66,8 @@ class User extends AggregateRoot<UserProps> {
   // List<Object> get props => <dynamic>[id, username, profileName, email, meta];
 
   get userId => UserId.create(this._id).getValue();
+
+  void delete() {
+    this.addDomainEvent(UserDeleted(this));
+  }
 }

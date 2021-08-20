@@ -3,10 +3,13 @@ import 'package:citacita/shared/domain/events/domain_events.dart';
 import 'package:citacita/shared/domain/unique_entity_id.dart';
 
 abstract class AggregateRoot<T> extends Entity<T> {
-  final UniqueEntityId _id;
-  final IDomainEvent[] _domainEvents = [];
+  UniqueEntityId _id;
+  IDomainEvent[] _domainEvents = [];
 
-  AggregateRoot(id, domainEvents): this._id = id, this._domainEvents = domainEvents;
+  // factory AggregateRoot(T props, id) {
+  //    this._id = id;
+  //    //, this._domainEvents = domainEvents;
+     }
 
   UniqueEntityId get id => _id;
 
@@ -25,7 +28,7 @@ abstract class AggregateRoot<T> extends Entity<T> {
   }
 
   void clearEvents() {
-    _domainEvents.removeRange(0, this._domainEvents.length);
+    this._domainEvents.removeRange(0, this._domainEvents.length);
   }
 
 
