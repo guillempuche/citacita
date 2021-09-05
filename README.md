@@ -22,6 +22,8 @@ We apply Domain-Driven Design (DDD).
 
 ## Future architectural improvements
 
-When the data stored complexity will increases, we can apply Event Sourcing to the DDD.
+When the data stored complexity will increases, we can apply reactive methologies like Event Sourcing to the DDD, but taking note of “premature optimization is the root of all evil.” by Donald Knuth.
+
+> "Usign domain events means we have to react to events that happened in the past, and bring our system into harmony." Vaughn Vernon in *DDD in Practice*
 
 > "Event Sourcing is a style of storing entities, not by directly storing their state, but rather as a sequence of events (i.e. an event stream) describing all the changes that happened to that entity in the past. The current state of the entity is recalculated by replaying all the past events on an “empty” instance." Info eMag in *DDD in Practice*
